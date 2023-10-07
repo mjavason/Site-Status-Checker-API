@@ -49,6 +49,12 @@ class SiteValidation {
   // Validation schema for retrieving sites with specific criteria
   find = {
     query: z.object({
+      _id: z
+        .string()
+        .refine((value) => Types.ObjectId.isValid(value), {
+          message: 'Invalid ObjectId format',
+        })
+        .optional(),
       user: z
         .string()
         .refine((value) => Types.ObjectId.isValid(value), {
