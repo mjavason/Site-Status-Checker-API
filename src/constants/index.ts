@@ -74,7 +74,5 @@ export const LINKS = {
 export const DATABASES = {
   USER: 'user',
   RESET_TOKEN: 'reset_token',
-  PATIENT: 'patient',
-  DOCTOR: 'DOCTOR',
-  MEDICAL_RECORD: 'medical_record',
+SITE: 'site'
 };
