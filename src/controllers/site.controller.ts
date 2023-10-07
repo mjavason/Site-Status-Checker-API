@@ -135,7 +135,7 @@ class Controller {
           logger.info(
             `Site: ${site.title} (${site.link}) for ${userProfile.first_name} ${
               userProfile.last_name
-            } (${userProfile._id}) responded unfavorably at ${new Date()}`,
+            } (${userProfile._id}) responded unfavorably on ${new Date()}`,
           );
         }
       }
