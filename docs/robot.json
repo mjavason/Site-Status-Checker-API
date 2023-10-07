@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status_code": "10000",
+    "message": "Successful",
+    "data": {
+        "name": "IRobot",
+        "creator": null,
+        "deleted": false,
+        "_id": "651da106a4e6fe207700297b",
+        "memories": [],
+        "createdAt": "2023-10-04T17:29:42.884Z",
+        "updatedAt": "2023-10-04T17:29:42.884Z",
+        "__v": 0
+    }
+}
