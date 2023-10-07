@@ -37,7 +37,6 @@ class Controller {
   startEvery30thMinute() {
     scheduleService.startEvery30thMinute(() => {
       siteController.checkSites(0.5, 'semi hourly');
-      sayHello();
     });
   }
 
