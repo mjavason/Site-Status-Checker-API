@@ -1,10 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { DATABASES } from '../../constants';
 import mongooseAutopopulate from 'mongoose-autopopulate';
+import { DATABASES } from '../../constants';
 import ISite from '../../interfaces/site.interface';
 
 const SiteSchema = new Schema<ISite>(
   {
+    // Reference to the user who owns the site
     user: {
       type: Schema.Types.ObjectId,
       ref: DATABASES.USER,
@@ -12,24 +13,31 @@ const SiteSchema = new Schema<ISite>(
       autopopulate: true,
       required: true,
     },
-    amount_to_earn: {
-      type: Number,
-      required: true,
-      default: 0,
+    title:{
+      type: String,
+      required:true
     },
+    // Hourly interval for site checks
     hourly_interval: {
       type: Number,
       required: true,
-      default: 30,
+      default: 1,
     },
+    link: {
+      type: String,
+      required: true,
+    },
+    // Status of the site
     status: {
       type: String,
-      enum: ['active', 'terminated', 'suspended', 'pending', 'other'],
+      enum: ['active', 'suspended', 'other'],
       default: 'active',
     },
+    // Flag to indicate if the site is deleted
     deleted: {
-      type: Schema.Types.Boolean,
+      type: Boolean,
       required: true,
+      select: false,
       default: false,
     },
   },
@@ -38,8 +46,10 @@ const SiteSchema = new Schema<ISite>(
   },
 );
 
+// Plugin for autopopulating the 'user' field when querying
 SiteSchema.plugin(mongooseAutopopulate);
 
+// Create and export the Site model
 const SiteModel = model<ISite>(DATABASES.SITE, SiteSchema);
 
 export default SiteModel;

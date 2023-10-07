@@ -1,23 +1,21 @@
 import { z } from 'zod';
 import { Types } from 'mongoose';
 
-class Validation {
-  // Validation schema for creating a new blog post
+class SiteValidation {
+  // Validation schema for creating a new site
   create = {
     body: z.object({
-      title: z.string().min(1).max(255).trim(),
-      content: z.string().min(1),
-      author_mda: z.string().refine((value) => Types.ObjectId.isValid(value), {
+      user: z.string().refine((value) => Types.ObjectId.isValid(value), {
         message: 'Invalid ObjectId format',
       }),
-      tags: z.array(z.string().trim()),
-      image: z.string(),
-      min_read: z.string(),
-      is_published: z.boolean().optional(),
+      hourly_interval: z.number().int().positive(),
+      link: z.string().min(1).trim(),
+      status: z.enum(['active', 'suspended', 'other']).optional(),
+      title: z.string().min(3).max(255), // Added the title field validation
     }),
   };
 
-  // Validation schema for updating an existing blog post
+  // Validation schema for updating an existing site
   update = {
     params: z.object({
       id: z.string().refine((value) => Types.ObjectId.isValid(value), {
@@ -25,37 +23,21 @@ class Validation {
       }),
     }),
     body: z.object({
-      title: z.string().min(1).max(255).trim().optional(),
-      content: z.string().min(1).optional(),
-      author_mda: z
+      user: z
         .string()
         .refine((value) => Types.ObjectId.isValid(value), {
           message: 'Invalid ObjectId format',
         })
         .optional(),
-      tags: z.array(z.string().trim()).optional(),
-      likes: z
-        .array(
-          z.string().refine((value) => Types.ObjectId.isValid(value), {
-            message: 'Invalid ObjectId format',
-          })
-        )
-        .optional(),
-      dislikes: z
-        .array(
-          z.string().refine((value) => Types.ObjectId.isValid(value), {
-            message: 'Invalid ObjectId format',
-          })
-        )
-        .optional(),
-      image: z.string().optional(),
-      min_read: z.string().optional(),
-      is_published: z.boolean().optional(),
+      hourly_interval: z.number().int().positive().optional(),
+      link: z.string().min(1).trim().optional(),
+      status: z.enum(['active', 'suspended', 'other']).optional(),
       deleted: z.boolean().optional(),
+      title: z.string().min(3).max(255), // Added the title field validation
     }),
   };
 
-  // Validation schema for deleting a blog post
+  // Validation schema for deleting a site
   delete = {
     params: z.object({
       id: z.string().refine((value) => Types.ObjectId.isValid(value), {
@@ -64,23 +46,20 @@ class Validation {
     }),
   };
 
-  // Validation schema for retrieving blog posts with specific criteria
+  // Validation schema for retrieving sites with specific criteria
   find = {
     query: z.object({
-      _id: z.string().refine((value) => Types.ObjectId.isValid(value), {
-        message: 'Invalid ObjectId format',
-      }).optional(),
-      title: z.string().optional(),
-      author_mda: z
+      user: z
         .string()
         .refine((value) => Types.ObjectId.isValid(value), {
           message: 'Invalid ObjectId format',
         })
         .optional(),
-      is_published: z.string().optional(),
-      deleted: z.string().optional(),
+      hourly_interval: z.string().optional(),
+      link: z.string().min(1).trim().optional(),
+      status: z.enum(['active', 'suspended', 'other']).optional(),
     }),
   };
 }
 
-export const siteValidation = new Validation();
+export const siteValidation = new SiteValidation();

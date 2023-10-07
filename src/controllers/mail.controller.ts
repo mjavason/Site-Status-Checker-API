@@ -77,7 +77,48 @@ class Controller {
     return { info };
   }
 
+  /**
+   * Send an email notification to the site owner when the site is down.
+   *
+   * @param {string} email - The email address of the site owner.
+   * @param {string} siteTitle - The title of the site that is down.
+   * @param {string} siteLink - The link to the site that is down.
+   * @param {string} firstName - The first name of the site owner.
+   */
+  async sendSiteDownNotificationMail(
+    email: string,
+    siteTitle: string,
+    siteLink: string,
+    firstName: string,
+  ) {
+    // Load the email template
+    const templatePath = 'src/templates/site_down.html';
 
+    // Replace placeholders with actual data
+    const data = {
+      siteTitle: siteTitle,
+      siteLink: siteLink,
+      firstName: firstName,
+    };
+
+    // Compile the template
+    const compiledTemplate = await renderMailTemplate(templatePath, data);
+
+    if (!compiledTemplate) return false;
+
+    // Send the email
+    const info = await mailService.sendMail(
+      email,
+      compiledTemplate,
+      `${APP_NAME} Site Down Notification`,
+    );
+
+    logger.info(
+      `Site: ${siteTitle} (${siteLink}) is down. Site down notification email sent to: ${email}`,
+    );
+
+    return { info };
+  }
 }
 
 export const mailController = new Controller();
