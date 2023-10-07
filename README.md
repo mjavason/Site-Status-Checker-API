@@ -1,6 +1,6 @@
 # Site Status Checker API
 
-A simple yet powerful API for monitoring website statuses in real-time, helping you ensure seamless user experiences and proactively address potential downtime. The API is currently live at [Site Status Checker](https://site-status-checker-rds7.onrender.com).
+A simple yet powerful API for monitoring website statuses in real-time, helping you ensure seamless user experiences and proactively address potential downtime. The API is currently live at [Site Status Checker](https://site-status-checker-l46c.onrender.com).
 
 ## Overview
 
