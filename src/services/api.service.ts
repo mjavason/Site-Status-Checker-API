@@ -25,7 +25,8 @@ class ApiService {
 
       return response.data;
     } catch (error) {
-      throw error;
+      console.log(error);
+      return <T>false;
     }
   }
 
