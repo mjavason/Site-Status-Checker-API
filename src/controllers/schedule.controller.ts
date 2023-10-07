@@ -36,6 +36,7 @@ class Controller {
 
   startEvery30thMinute() {
     scheduleService.startEvery30thMinute(() => {
+      siteController.checkSites(0.5, 'semi hourly');
       sayHello();
     });
   }
@@ -48,25 +49,25 @@ class Controller {
 
   startDailyJobs() {
     scheduleService.startDaily(async () => {
-      await siteController.checkSites(24, 'hourly');
+      await siteController.checkSites(24, 'daily');
     });
   }
 
   startWeeklyJobs() {
     scheduleService.startWeekly(async () => {
-      await siteController.checkSites(168, 'hourly');
+      await siteController.checkSites(168, 'weekly');
     });
   }
 
   startMonthlyJobs() {
     scheduleService.startMonthly(async () => {
-      await siteController.checkSites(720, 'hourly');
+      await siteController.checkSites(720, 'monthly');
     });
   }
 
   startYearlyJobs() {
     scheduleService.startYearly(async () => {
-      await siteController.checkSites(8760, 'hourly');
+      await siteController.checkSites(8760, 'yearly');
     });
   }
 }

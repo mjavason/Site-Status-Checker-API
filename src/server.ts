@@ -11,10 +11,15 @@ const PORT = process.env.PORT || 5000;
 const server: Server = app.listen(PORT, async () => {
   await connectToDatabase();
   logger.info(`Server running on port ${PORT}`);
+  // scheduleController.startEverySecond();
   // scheduleController.startEveryMinute();
   scheduleController.startEvery10thMinute();
-  // scheduleController.startHourlyJobs();
-  // scheduleController.startEverySecond();
+  scheduleController.startEvery30thMinute();
+  scheduleController.startHourlyJobs();
+  scheduleController.startDailyJobs();
+  scheduleController.startWeeklyJobs();
+  scheduleController.startMonthlyJobs();
+  scheduleController.startYearlyJobs();
 });
 
 // handle unhanled promise rejections
