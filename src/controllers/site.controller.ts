@@ -109,6 +109,7 @@ class Controller {
 
         // Attempt to fetch data from the site's API
         const response = await siteApiService.get('/');
+        console.log('Checked: ', site.title);
         console.log(response);
 
         // If there is no response from the site, handle the error
